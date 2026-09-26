@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Employee Management System</title>
+
+    <style>
+
+        /* =========================
+           DEFAULT
+        ========================= */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            min-height: 100vh;
+
+            transition:
+                background-color 0.3s ease,
+                color 0.3s ease;
+        }
+
+
+        /* =========================
+           LIGHT MODE
+        ========================= */
+
+        body.light {
+            background:url("https://i.pinimg.com/736x/f5/77/c3/f577c3882823d9912123def561294559.jpg");
+            color: #fbf5f5;
+        }
+
+        body.light .content {
+            border: 1px solid rgba(8, 8, 8, 0.5);
+            backdrop-filter: blur(9px);
+            -webkit-backdrop-filter: blur(9px);
+        }
+
+        body.light .content h1 {
+            color: #222;
+        }
+
+        body.light .content p {
+            color: #555;
+        }
+
+
+        /* =========================
+           DARK MODE
+        ========================= */
+
+        body.dark {
+            background:url("https://i.pinimg.com/736x/90/c6/e5/90c6e50957bb3c597a79f984e7db3ac9.jpg");
+            color: white;
+        }
+
+        body.dark .content {
+             border: 1px solid rgba(253, 247, 247, 0.5);
+            backdrop-filter: blur(9px);
+            -webkit-backdrop-filter: blur(9px);
+        }
+
+        body.dark .content h1 {
+            color: white;
+        }
+
+        body.dark .content p {
+            color: #ddd;
+        }
+
+
+        /* =========================
+           NAVBAR
+        ========================= */
+
+        .navbar {
+            background:url("https://i.pinimg.com/1200x/cb/88/8e/cb888e9d7b3368339b79312fa1086821.jpg");
+            
+            padding: 15px 30px;
+
+            display: flex;
+
+            align-items: center;
+
+            min-height: 70px;
+        }
+
+
+        /* =========================
+           LOGO
+        ========================= */
+
+        .logo {
+            color: white;
+
+            font-size: 22px;
+
+            font-weight: bold;
+
+            margin-right: auto;
+        }
+
+
+        /* =========================
+           THEME BUTTONS
+        ========================= */
+
+        .theme-buttons {
+            display: flex;
+
+            gap: 10px;
+
+            margin-right: 30px;
+        }
+
+        .theme-buttons a {
+            color: white;
+
+            text-decoration: none;
+
+            border: 1px solid #f6f8f8;
+
+            padding: 8px 12px;
+
+            border-radius: 5px;
+
+            font-size: 14px;
+
+            transition: 0.3s;
+        }
+
+        .theme-buttons a:hover {
+            background-color: #f5eaea;
+        }
+
+
+        /* =========================
+           NAV LINKS
+        ========================= */
+
+        .nav-links {
+            display: flex;
+
+            align-items: center;
+
+            list-style: none;
+
+            gap: 20px;
+        }
+
+        .nav-links a {
+            color: white;
+
+            text-decoration: none;
+
+            font-size: 16px;
+
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #0a0a0a;
+        }
+
+
+        /* =========================
+           LOGOUT BUTTON
+        ========================= */
+
+        .logout-button {
+            background-color: #8c0502;
+
+            color: white !important;
+
+            padding: 8px 14px;
+
+            border-radius: 5px;
+
+            text-decoration: none;
+
+            font-size: 14px !important;
+
+            font-weight: bold;
+
+            transition: 0.3s;
+        }
+
+        .logout-button:hover {
+            background-color: #290101;
+
+            color: white !important;
+        }
+
+
+        /* =========================
+           CONTENT
+        ========================= */
+
+        .content {
+            width: 80%;
+
+            margin: 60px auto;
+
+            padding: 60px 30px;
+
+            border-radius: 10px;
+
+            text-align: center;
+
+            transition: 0.3s;
+        }
+
+
+        .content h1 {
+            margin-bottom: 20px;
+        }
+
+
+        .content p {
+            font-size: 18px;
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 900px) {
+
+            .navbar {
+                flex-wrap: wrap;
+
+                gap: 15px;
+
+                padding: 15px;
+            }
+
+            .logo {
+                width: 100%;
+
+                margin-right: 0;
+
+                text-align: center;
+            }
+
+            .theme-buttons {
+                margin-right: 0;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+
+                justify-content: center;
+
+                width: 100%;
+
+                gap: 15px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<!-- Flask sends theme = light/dark -->
+
+<body class="{{ theme }}">
+
+
+    <!-- =========================
+         NAVBAR
+    ========================= -->
+
+    <nav class="navbar">
+
+
+        <!-- LOGO -->
+
+        <div class="logo">
+            Employee Management System
+        </div>
+
+
+        <!-- THEME BUTTONS -->
+
+        <div class="theme-buttons">
+
+            <a href="/set-theme/light">
+                ☀ Light
+            </a>
+
+            <a href="/set-theme/dark">
+                 ⏾ Dark
+            </a>
+
+        </div>
+
+
+        <!-- NAVIGATION -->
+
+        <ul class="nav-links">
+
+            <li>
+                <a href="/">
+                    Home
+                </a>
+            </li>
+
+            <li>
+                <a href="/employees">
+                    Employees
+                </a>
+            </li>
+
+            <li>
+                <a href="/add-employee">
+                    Add Employee
+                </a>
+            </li>
+
+            <li>
+                <a href="/search">
+                    Search
+                </a>
+            </li>
+
+            <!-- LOGOUT -->
+
+            <li>
+                <a href="/logout"
+                   class="logout-button">
+                    Logout
+                </a>
+            </li>
+
+        </ul>
+
+    </nav>
+
+
+    <!-- =========================
+         CONTENT
+    ========================= -->
+
+    <div class="content">
+        {%block content%}
+
+        {% if fullname %}
+
+            <h1>
+                Welcome, {{ fullname }}!
+            </h1>
+
+        {% else %}
+
+            <h1>
+                Welcome to Employee Management System
+            </h1>
+
+        {% endif %}
+        {% endblock %}
+
+        <p>
+            Manage your employees easily.
+        </p>
+
+    </div>
+
+
+</body>
+
+</html>
